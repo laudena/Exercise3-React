@@ -20144,7 +20144,7 @@
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _react = __webpack_require__(/*! react */ 1);
@@ -20175,37 +20175,60 @@
 	
 	var _newItemForm2 = _interopRequireDefault(_newItemForm);
 	
+	var _underscore = __webpack_require__(/*! underscore */ 161);
+	
+	var _underscore2 = _interopRequireDefault(_underscore);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 	
 	exports.default = _react2.default.createClass({
-	  displayName: 'demo4',
+	    displayName: 'demo4',
 	
-	  getInitialState: function getInitialState() {
-	    return {
-	      items: this.children
-	    };
-	  },
-	  render: function render() {
-	    return _react2.default.createElement(
-	      'div',
-	      null,
-	      _react2.default.createElement(
-	        _selector2.default,
-	        null,
-	        _react2.default.createElement(_counter2.default, { max: '10' }),
-	        _react2.default.createElement(_multi_input2.default, { boxCount: '7' }),
-	        _react2.default.createElement(_TimeConverter2.default, null),
-	        _react2.default.createElement(_filteredList2.default, { items: days }),
-	        _react2.default.createElement(_newItemForm2.default, { onNewItem: this.setNewItem })
-	      )
-	    );
-	  },
-	  setNewItem: function setNewItem(item) {
+	    getInitialState: function getInitialState() {
+	        var children = [];
+	        var child1 = _react2.default.createElement("Counter", { max: "10" }, '');
+	        var child2 = _react2.default.createElement("TimeConverter", null, '');
+	        var child3 = _react2.default.createElement("NewItem", null, '');
+	        children.push(child1);
+	        children.push(child2);
+	        children.push(child3);
 	
-	    console.log("GOT IT!!!!" + item);
-	  }
+	        return { children: children };
+	    },
+	
+	    render: function render() {
+	        /*var listOfItems = _.map(this.state.children, function(name) {
+	            if (name === "counter"){
+	                return '<Counter max="10" />';
+	            }
+	            else if (name === "TimeConverter"){
+	                return '<TimeConverter />';
+	            }
+	            else if (name === "multi_input"){
+	                return '<MultiInput  boxCount="7"/>';
+	            }
+	            else if (name === "filteredList"){
+	                return '<FilteredList items={days}/>';
+	            }
+	        });*/
+	
+	        return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(_selector2.default, { children: this.state.children })
+	        );
+	    },
+	    setNewItem: function setNewItem(item) {
+	        var child = _react2.default.createElement(item, { boxCount: "6", max: "10", items: { days: days } }, '');
+	        //var root = React.createElement('ul', { className: 'my-list' }, child);
+	
+	        var curState = this.state.children;
+	        curState.push(child);
+	        this.setState({ children: curState });
+	        console.log("GOT IT!!!!" + item);
+	    }
 	});
 
 /***/ },
@@ -20236,24 +20259,27 @@
 	
 	  propTypes: {
 	    children: _react2.default.PropTypes.node
+	
 	  },
 	  getInitialState: function getInitialState() {
-	    return { selected: 0,
-	      newItem: false };
+	    return { selected: 0 };
 	  },
 	  selectItem: function selectItem(idx) {
-	    this.setState({ selected: idx,
-	      newItem: false });
+	    this.setState({ selected: idx
+	    });
 	  },
 	  newItem: function newItem() {
-	    this.setState({ selected: this.state.selected,
-	      newItem: true });
+	    this.setState({ selected: this.state.selected
+	    });
 	  },
 	  setNewItem: function setNewItem(item) {
-	    console.log("GOT IT!!!!" + item);
+	    console.log("(not) GOT IT!!!!" + item);
 	  },
 	  showItem: function showItem() {
-	    if (this.state.newItem) return this.props.children[this.props.children.length - 1];else return this.props.children[this.state.selected];
+	    /*if (this.state.newItem)
+	        return this.props.children[this.props.children.length - 1];
+	    else*/
+	    return this.props.children[this.state.selected];
 	  },
 	
 	  render: function render() {
@@ -20271,7 +20297,7 @@
 	        _react2.default.createElement(
 	          'ul',
 	          { className: 'nav nav-pills nav-stacked' },
-	          _underscore2.default.range(children.length - 1).map(function (index) {
+	          _underscore2.default.range(children.length).map(function (index) {
 	            return _react2.default.createElement(
 	              'li',
 	              null,
@@ -20283,17 +20309,7 @@
 	                index
 	              )
 	            );
-	          }),
-	          _react2.default.createElement(
-	            'li',
-	            null,
-	            _react2.default.createElement(
-	              'a',
-	              { key: children.length - 1, href: '#',
-	                onClick: this.selectItem.bind(this, children.length - 1) },
-	              'New Item'
-	            )
-	          )
+	          })
 	        )
 	      ),
 	      _react2.default.createElement(
@@ -22189,19 +22205,19 @@
 	            _react2.default.createElement(
 	                "label",
 	                { className: "radio-inline" },
-	                _react2.default.createElement("input", { type: "radio", name: "optradio", value: "counter", onClick: this.setState }),
+	                _react2.default.createElement("input", { type: "radio", name: "optradio", value: "Counter", onClick: this.setState }),
 	                "counter"
 	            ),
 	            _react2.default.createElement(
 	                "label",
 	                { className: "radio-inline" },
-	                _react2.default.createElement("input", { type: "radio", name: "optradio", value: "filteredList", onChange: this.setState }),
+	                _react2.default.createElement("input", { type: "radio", name: "optradio", value: "FilteredList", onChange: this.setState }),
 	                "filteredList"
 	            ),
 	            _react2.default.createElement(
 	                "label",
 	                { className: "radio-inline" },
-	                _react2.default.createElement("input", { type: "radio", name: "optradio", value: "multi_input", onChange: this.setState }),
+	                _react2.default.createElement("input", { type: "radio", name: "optradio", value: "MultiInput", onChange: this.setState }),
 	                "multi_input"
 	            ),
 	            _react2.default.createElement(
