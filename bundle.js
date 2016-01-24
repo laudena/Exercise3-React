@@ -20326,8 +20326,7 @@
 	                'a',
 	                { key: index, href: '#',
 	                  onClick: _this.selectItem.bind(_this, index) },
-	                'Try ',
-	                index
+	                children[index].type.displayName
 	              )
 	            );
 	          })

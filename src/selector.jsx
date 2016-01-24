@@ -41,7 +41,7 @@ export default React.createClass({
         {_.range(children.length ).map((index) => (
           <li>
           <a key={index} href="#"
-            onClick={this.selectItem.bind(this, index)}>Try {index}</a>
+            onClick={this.selectItem.bind(this, index)}>{children[index].type.displayName}</a>
           </li>
 
         ))}
