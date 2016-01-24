@@ -17,7 +17,7 @@ module.exports = {
     ]
   },
   resolve: {
-    modulesDirectories: ['node_modules', 'src'],
+    modulesDirectories: ['node_modules', 'src', 'src/components'],
     extensions: ['', '.js', '.jsx']
   },
 };

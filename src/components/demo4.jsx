@@ -6,10 +6,39 @@ import MultiInput from "./multi_input";
 import FilteredList from "./filteredList";
 import NewItem from "./newItemForm";
 import _ from 'underscore';
+import ReactDOM from 'react-dom';
+import MenuStore from '../flux/stores/menu';
+import MenuActions from '../flux/actions/menu';
 
 var days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 
+
+
 export default React.createClass({
+    getInitialState: function() {
+        return this.stateFromStore(MenuStore);
+    },
+
+    // React Hook
+    componentDidMount: function() {
+        MenuStore.subscribe(this.handleStoreChange);
+    },
+
+    // React Hook
+    componentWillUnmount: function() {
+        MenuStore.unsubscribe(this.handleStoreChange);
+    },
+
+    handleStoreChange: function() {
+        this.setState(this.stateFromStore(MenuStore));
+    },
+
+    stateFromStore: function(store) {
+        return {
+            selectedIdx: store.selectedIdx,
+            children: store.children,
+        };
+    },
 
   getInitialState: function() {
       var children = [];
